@@ -20,6 +20,8 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 # Install a static file server (serve)
+RUN npm install -g pnpm
+
 RUN pnpm add -g serve
 
 # Copy built files from builder
