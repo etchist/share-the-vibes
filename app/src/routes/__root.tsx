@@ -38,33 +38,35 @@ export const RootRoute = () => {
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
   };
   return (
-    <MantineProvider theme={theme} defaultColorScheme="auto">
-      <AppShell
-        header={{ height: 60 }}
-        padding="md"
-        styles={{
-          main: {
-            paddingLeft: 'var(--mantine-spacing-md)',
-            paddingRight: 'var(--mantine-spacing-md)',
-          },
-        }}
-      >
-        <AppShell.Header>
-          <Navbar theme={colorScheme} toggleTheme={toggleTheme} />
-        </AppShell.Header>
+    <>
+      <MantineProvider theme={theme} defaultColorScheme="auto">
+        <AppShell
+          header={{ height: 60 }}
+          padding="md"
+          styles={{
+            main: {
+              paddingLeft: 'var(--mantine-spacing-md)',
+              paddingRight: 'var(--mantine-spacing-md)',
+            },
+          }}
+        >
+          <AppShell.Header>
+            <Navbar theme={colorScheme} toggleTheme={toggleTheme} />
+          </AppShell.Header>
 
-        <AppShell.Main>
-          <Container size="xl" px={0}>
-            <Outlet />
-          </Container>
-        </AppShell.Main>
+          <AppShell.Main>
+            <Container size="xl" px={0}>
+              <Outlet />
+            </Container>
+          </AppShell.Main>
 
-        <AppShell.Footer>
-          <Footer />
-        </AppShell.Footer>
-      </AppShell>
+          <AppShell.Footer pos="relative">
+            <Footer />
+          </AppShell.Footer>
+        </AppShell>
+      </MantineProvider>
       <TanStackRouterDevtools />
-    </MantineProvider>
+    </>
   );
 };
 export const Route = createRootRoute({
