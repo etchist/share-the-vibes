@@ -9,7 +9,7 @@ RUN npm install -g pnpm
 
 # Copy package.json, pnpm-lock.yaml, and workspace configuration
 COPY package.json pnpm-lock.yaml ./
-COPY nx.json workspace.json tsconfig.base.json ./
+COPY nx.json tsconfig.base.json ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
