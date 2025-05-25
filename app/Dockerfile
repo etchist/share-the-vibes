@@ -24,7 +24,7 @@ RUN pnpm nx build @share-the-vibes/app
 FROM nginx:alpine
 
 # Copy the built application from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/app/dist /usr/share/nginx/html
 
 # Expose the default nginx port
 EXPOSE 80
