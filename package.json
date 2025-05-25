@@ -2,7 +2,9 @@
   "name": "@share-the-vibes/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "npx nx serve @share-the-vibes/app"
+  },
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.8.0",
