@@ -18,7 +18,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Run the Nx build command (adjust the target as needed)
-RUN pnpm nx build
+RUN pnpm nx build @share-the-vibes/app
 
 # Stage 2: Serve the application
 FROM nginx:alpine
