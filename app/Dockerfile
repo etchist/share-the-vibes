@@ -3,31 +3,20 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm using the official installer
-RUN wget -qO- https://get.pnpm.io/install.sh | sh -
+# Install pnpm globally
+RUN npm install -g pnpm
 
-# Copy package files
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+# Copy package.json and pnpm-lock.yaml to the container
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependencies using pnpm
+RUN pnpm install --frozen-lockfile
+
+# Copy the rest of the application code
 COPY . .
 
-# Install dependencies and build
-RUN pnpm install --frozen-lockfile
-RUN pnpm build
+# Expose the application port (adjust as needed)
+EXPOSE 3000
 
-# Use a lightweight web server to serve the built files
-FROM node:20-alpine AS runner
-
-WORKDIR /app
-
-# Install pnpm using the official installer
-RUN wget -qO- https://get.pnpm.io/install.sh | sh - && \
-  pnpm add -g serve
-
-# Copy built files from builder
-COPY --from=builder /app/dist ./dist
-
-# Expose the port (default Vite preview port)
-EXPOSE 4173
-
-# Start the app
-CMD ["serve", "-s", "dist", "-l", "4173"]
+# Define the command to run the application
+CMD ["pnpm", "start"]
