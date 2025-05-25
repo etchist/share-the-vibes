@@ -41,8 +41,8 @@ const StoryPage: React.FC = () => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: story?.title || 'Vibe Coding Horror',
-          text: `Check out this coding horror story: ${story?.title}`,
+          title: story?.title || 'Share the Vibes',
+          text: `Check out this story on Share the Vibes: ${story?.title}`,
           url: window.location.href,
         });
       } else {
@@ -145,8 +145,6 @@ const StoryPage: React.FC = () => {
               dangerouslySetInnerHTML={{ __html: story.content }}
               style={{
                 maxWidth: '100%',
-                '& > :first-child': { marginTop: 0 },
-                '& > :last-child': { marginBottom: 0 },
               }}
             />
           </Stack>

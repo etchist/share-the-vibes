@@ -36,7 +36,7 @@ Deno.serve(async (req: Request) => {
         JSON.stringify({ error: 'Missing storyId or email' }),
         {
           status: 400,
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
             ...corsHeaders
           }
@@ -57,7 +57,7 @@ Deno.serve(async (req: Request) => {
         JSON.stringify({ error: 'Story not found' }),
         {
           status: 404,
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
             ...corsHeaders
           }
@@ -67,18 +67,18 @@ Deno.serve(async (req: Request) => {
 
     // Generate verification token (in a real app, you'd store this securely)
     const verificationToken = crypto.randomUUID();
-    
+
     // Create verification link
     const baseUrl = Deno.env.get('FRONTEND_URL') || '';
     const verificationLink = `${baseUrl}/verify?id=${storyId}&token=${verificationToken}`;
 
     // In a real application, you would send an actual email here
     // For this demo, we'll just log the link and return success
-    console.log(`Verification link for story "${story.title}": ${verificationLink}`);
+    console.log(`Verification link for story on Share the Vibes: "${story.title}": ${verificationLink}`);
 
     // Return success response
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         success: true,
         message: 'Verification email sent',
         // Don't include this in production, just for demo purposes
@@ -86,7 +86,7 @@ Deno.serve(async (req: Request) => {
       }),
       {
         status: 200,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           ...corsHeaders
         }
@@ -95,12 +95,12 @@ Deno.serve(async (req: Request) => {
 
   } catch (error) {
     console.error('Error sending verification email:', error);
-    
+
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
       {
         status: 500,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           ...corsHeaders
         }

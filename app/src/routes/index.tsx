@@ -29,7 +29,7 @@ const HomePage: React.FC = () => {
   const [recentStories, setRecentStories] = useState<StoryPreview[]>([]);
   const [popularTags, setPopularTags] = useState<Tag[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
     // }
 
     if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+      const query = (searchQuery ?? '').toLowerCase();
       return (
         story.title.toLowerCase().includes(query) ||
         story.content.toLowerCase().includes(query) ||
@@ -94,12 +94,11 @@ const HomePage: React.FC = () => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            Vibe Coding Stories
+            Share the Vibes
           </Title>
           <Text size="lg" c="dimmed" maw={800} mx="auto">
-            Share your experiences with vibe-based coding - the triumphs, the
-            disasters, and everything in between. Because sometimes going with
-            the flow leads to unexpected places!
+            Share your experiences with vibe-based coding — the triumphs, the
+            disasters, and everything in between. Because sometimes sharing the vibes leads to unexpected places!
           </Text>
         </Stack>
       </motion.div>
@@ -111,11 +110,9 @@ const HomePage: React.FC = () => {
           </Group>
         </Paper>
       ) : (
-        <>
-          {featuredStories.length > 0 && (
-            <FeaturedStory story={featuredStories[0]} />
-          )}
-        </>
+        featuredStories.length > 0 && (
+          <FeaturedStory story={featuredStories[0]} />
+        )
       )}
 
       <Stack gap="lg">
@@ -139,8 +136,8 @@ const HomePage: React.FC = () => {
                   tag={tag.name}
                   count={tag.count}
                   clickable
-                  // selected={selectedTag === tag.name}
-                  // onSelect={handleTagSelect}
+                // selected={selectedTag === tag.name}
+                // onSelect={handleTagSelect}
                 />
               ))}
             </Group>

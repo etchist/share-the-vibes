@@ -1,8 +1,8 @@
 /*
-  # Initial Schema for Vibe Coding Horrors
+  # Initial Schema for Share the Vibes
 
   1. New Tables
-    - `stories` - Main table for storing coding horror stories
+    - `stories` - Main table for storing coding stories
       - `id` (uuid, primary key)
       - `created_at` (timestamp)
       - `title` (text)

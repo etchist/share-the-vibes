@@ -5,7 +5,7 @@ export default function HeaderMegaMenu() {
     <header>
       <Flex justify="space-between" align="center" p="xs">
         <Title order={3} textWrap="wrap">
-          Vibe Coding Horrors
+          Share the Vibes
         </Title>
         <Group justify="end" wrap="nowrap">
           <Button>Read more</Button>
