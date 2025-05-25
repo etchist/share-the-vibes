@@ -1,10 +1,10 @@
-# Use official Node.js image for build
+# Use official pnpm image for build
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+# Install pnpm using the official installer
+RUN wget -qO- https://get.pnpm.io/install.sh | sh -
 
 # Copy package files
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -19,9 +19,8 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Install pnpm and setup
-RUN npm install -g pnpm && \
-  pnpm setup && \
+# Install pnpm using the official installer
+RUN wget -qO- https://get.pnpm.io/install.sh | sh - && \
   pnpm add -g serve
 
 # Copy built files from builder
