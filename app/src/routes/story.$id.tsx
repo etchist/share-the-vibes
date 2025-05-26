@@ -19,7 +19,7 @@ import { notifications } from '@mantine/notifications';
 import { IconArrowLeft, IconShare, IconEye } from '@tabler/icons-react';
 
 const StoryPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = Route.useParams();
   const [story, setStory] = useState<Story | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -27,8 +27,8 @@ const StoryPage: React.FC = () => {
     const fetchStory = async () => {
       if (!id) return;
 
-      setIsLoading(true);
       const fetchedStory = await getStoryById(id);
+      setIsLoading(true);
       setStory(fetchedStory);
       setIsLoading(false);
     };
@@ -154,6 +154,9 @@ const StoryPage: React.FC = () => {
   );
 };
 
-export const Route = createFileRoute('/story')({
+export const Route = createFileRoute(`/story/$id`)({
+  loader: async ({ params }) => {
+    return getStoryById(params.id);
+  },
   component: StoryPage,
 });

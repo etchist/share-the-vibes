@@ -13,10 +13,10 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SuccessImport } from './routes/success'
 import { Route as SubmitImport } from './routes/submit'
-import { Route as StoryImport } from './routes/story'
 import { Route as NotFoundImport } from './routes/not-found'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as StoryIdImport } from './routes/story.$id'
 
 // Create/Update Routes
 
@@ -29,12 +29,6 @@ const SuccessRoute = SuccessImport.update({
 const SubmitRoute = SubmitImport.update({
   id: '/submit',
   path: '/submit',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoryRoute = StoryImport.update({
-  id: '/story',
-  path: '/story',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,6 +47,12 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const StoryIdRoute = StoryIdImport.update({
+  id: '/story/$id',
+  path: '/story/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,13 +81,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
-    '/story': {
-      id: '/story'
-      path: '/story'
-      fullPath: '/story'
-      preLoaderRoute: typeof StoryImport
-      parentRoute: typeof rootRoute
-    }
     '/submit': {
       id: '/submit'
       path: '/submit'
@@ -102,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuccessImport
       parentRoute: typeof rootRoute
     }
+    '/story/$id': {
+      id: '/story/$id'
+      path: '/story/$id'
+      fullPath: '/story/$id'
+      preLoaderRoute: typeof StoryIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -111,18 +111,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/not-found': typeof NotFoundRoute
-  '/story': typeof StoryRoute
   '/submit': typeof SubmitRoute
   '/success': typeof SuccessRoute
+  '/story/$id': typeof StoryIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/not-found': typeof NotFoundRoute
-  '/story': typeof StoryRoute
   '/submit': typeof SubmitRoute
   '/success': typeof SuccessRoute
+  '/story/$id': typeof StoryIdRoute
 }
 
 export interface FileRoutesById {
@@ -130,24 +130,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/not-found': typeof NotFoundRoute
-  '/story': typeof StoryRoute
   '/submit': typeof SubmitRoute
   '/success': typeof SuccessRoute
+  '/story/$id': typeof StoryIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/not-found' | '/story' | '/submit' | '/success'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/not-found'
+    | '/submit'
+    | '/success'
+    | '/story/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/not-found' | '/story' | '/submit' | '/success'
+  to: '/' | '/about' | '/not-found' | '/submit' | '/success' | '/story/$id'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/not-found'
-    | '/story'
     | '/submit'
     | '/success'
+    | '/story/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -155,18 +161,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   NotFoundRoute: typeof NotFoundRoute
-  StoryRoute: typeof StoryRoute
   SubmitRoute: typeof SubmitRoute
   SuccessRoute: typeof SuccessRoute
+  StoryIdRoute: typeof StoryIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   NotFoundRoute: NotFoundRoute,
-  StoryRoute: StoryRoute,
   SubmitRoute: SubmitRoute,
   SuccessRoute: SuccessRoute,
+  StoryIdRoute: StoryIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -182,9 +188,9 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/not-found",
-        "/story",
         "/submit",
-        "/success"
+        "/success",
+        "/story/$id"
       ]
     },
     "/": {
@@ -196,14 +202,14 @@ export const routeTree = rootRoute
     "/not-found": {
       "filePath": "not-found.tsx"
     },
-    "/story": {
-      "filePath": "story.tsx"
-    },
     "/submit": {
       "filePath": "submit.tsx"
     },
     "/success": {
       "filePath": "success.tsx"
+    },
+    "/story/$id": {
+      "filePath": "story.$id.tsx"
     }
   }
 }
